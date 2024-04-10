@@ -3,6 +3,27 @@
  * @returns { Promise<void> }
  */
 exports.up = function (knex) {
+    return knex.schema.createTable("inventories", (table) => {
+        table.increments("id").primary();
+        table
+            .integer("day_id")
+            .unsigned()
+            .references("day.id")
+            .onUpdate("CASCADE")
+            .onDelete("CASCADE");
+        table
+            .integer("meal_id")
+            .unsigned()
+            .references("meal.id")
+            .onUpdate("CASCADE")
+            .onDelete("CASCADE");
+        table
+            .integer("recipe_id")
+            .unsigned()
+            .references("recipes.id")
+            .onUpdate("CASCADE")
+            .onDelete("CASCADE");
+    });
 };
 
 /**
