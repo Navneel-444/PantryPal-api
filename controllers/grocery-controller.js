@@ -18,6 +18,22 @@ const addGroceryItem = async (req, res) => {
     }
 }
 
+const getGroceryItems = async (req, res) => {
+    try {
+        const grocerylist = await knex("grocery").select(
+            "id",
+            "item",
+            "quantity"
+        );
+        res.json(grocerylist);
+    } catch (e) {
+        res.status(500).json({
+            message: "unable to retrive grocery list"
+        });
+    }
+}
+
 module.exports = {
-    addGroceryItem
+    addGroceryItem,
+    getGroceryItems
 };
