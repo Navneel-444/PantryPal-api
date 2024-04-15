@@ -5,6 +5,8 @@ router
     .route("/")
     .get(groceryController.getGroceryItems)
     .post(groceryController.addGroceryItem)
-
+router
+    .route("/:id")
+    .delete(groceryController.deleteGroceryItem)
 
 module.exports = router
