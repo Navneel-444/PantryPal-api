@@ -49,7 +49,7 @@ const deleteGroceryItem = async (req, res) => {
         })
     }
 }
-const editGorgercyItem = async (req, res) => {
+const editGroceryItem = async (req, res) => {
     console.log(req.body)
     if (
         !req.body.id ||
@@ -86,5 +86,5 @@ module.exports = {
     addGroceryItem,
     getGroceryItems,
     deleteGroceryItem,
-    editGorgercyItem
+    editGroceryItem
 };
