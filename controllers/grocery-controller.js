@@ -33,7 +33,25 @@ const getGroceryItems = async (req, res) => {
     }
 }
 
+const deleteGroceryItem = async (req, res) => {
+    try {
+        const rowDelete = await knex("grocery")
+            .where({ id: req.params.id })
+            .delete();
+        if (rowDelete === 0) {
+            return res
+                .status(404)
+                .json({ message: `item with ID: ${req.params.id} not found` })
+        }
+    } catch (e) {
+        res.status(500).json({
+            message: `unable to delete inventory: ${error}`
+        })
+    }
+}
+
 module.exports = {
     addGroceryItem,
-    getGroceryItems
+    getGroceryItems,
+    deleteGroceryItem
 };
