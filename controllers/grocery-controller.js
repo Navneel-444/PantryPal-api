@@ -49,9 +49,42 @@ const deleteGroceryItem = async (req, res) => {
         })
     }
 }
+const editGorgercyItem = async (req, res) => {
+    console.log(req.body)
+    if (
+        !req.body.id ||
+        !req.body.item ||
+        !req.body.quantity
+    ) {
+        return res.status(400).json({
+            message: 'Please provide neccassary detials for the grocery item'
+        });
+    }
+    try {
+        const itemUpdate = await knex('grocery')
+            .where({ id: req.params.id })
+            .update(req.body)
+
+        if (itemUpdate === 0) {
+            return res.status(404).json({
+                message: `Grocery item with ID ${req.params.id} not found`,
+            });
+        }
+        const updatedItem = await knex('grocery').where({
+            id: req.params.id,
+        });
+        res.json(updatedItem[0]);
+    } catch (e) {
+        res.status(500).json({
+            message: `Unable to update user ID:${req.params.id}`
+        })
+    }
+}
+
 
 module.exports = {
     addGroceryItem,
     getGroceryItems,
-    deleteGroceryItem
+    deleteGroceryItem,
+    editGorgercyItem
 };
