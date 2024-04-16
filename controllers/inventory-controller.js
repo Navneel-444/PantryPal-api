@@ -9,33 +9,33 @@ const addInventoryItem = async (req, res) => {
         return
     }
     try {
-        const data = await knex("grocery").insert(req.body);
+        const data = await knex("inventory").insert(req.body);
         res.status(201).json(data)
     } catch (error) {
         res.status(500).json({
-            message: `Unable to add grocery item: ${error}`
+            message: `Unable to add inventory item: ${error}`
         });
     }
 }
 
 const getInventoryItems = async (req, res) => {
     try {
-        const grocerylist = await knex("grocery").select(
+        const inventorylist = await knex("inventory").select(
             "id",
             "item",
             "quantity"
         );
-        res.json(grocerylist);
+        res.json(inventorylist);
     } catch (e) {
         res.status(500).json({
-            message: "unable to retrive grocery list"
+            message: "unable to retrive inventory list"
         });
     }
 }
 
 const deleteInventoryItem = async (req, res) => {
     try {
-        const rowDelete = await knex("grocery")
+        const rowDelete = await knex("inventory")
             .where({ id: req.params.id })
             .delete();
         if (rowDelete === 0) {
@@ -57,20 +57,20 @@ const editInventoryItem = async (req, res) => {
         !req.body.quantity
     ) {
         return res.status(400).json({
-            message: 'Please provide neccassary detials for the grocery item'
+            message: 'Please provide neccassary detials for the inventory item'
         });
     }
     try {
-        const itemUpdate = await knex('grocery')
+        const itemUpdate = await knex('inventory')
             .where({ id: req.params.id })
             .update(req.body)
 
         if (itemUpdate === 0) {
             return res.status(404).json({
-                message: `Grocery item with ID ${req.params.id} not found`,
+                message: `inventory item with ID ${req.params.id} not found`,
             });
         }
-        const updatedItem = await knex('grocery').where({
+        const updatedItem = await knex('inventory').where({
             id: req.params.id,
         });
         res.json(updatedItem[0]);
