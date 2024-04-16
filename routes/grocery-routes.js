@@ -8,6 +8,6 @@ router
 router
     .route("/:id")
     .delete(groceryController.deleteGroceryItem)
-    .put(groceryController.editGorgercyItem)
+    .put(groceryController.editGroceryItem)
 
 module.exports = router
