@@ -7,7 +7,9 @@ exports.up = function (knex) {
         table.increments("id").primary();
         table.string("name").notNullable();
         table.string("image").notNullable();
-        table.string("ingredients").notNullable();
+        table.string("recipe_ID").notNullable();
+        table.string("meal").notNullable();
+        table.string("day").notNullable();
         table.timestamp("created_at").defaultTo(knex.fn.now());
         table
             .timestamp("updated_at")
